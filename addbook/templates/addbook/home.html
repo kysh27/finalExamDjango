@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <title>Final Exam Django</title>
+    </head>
+
+    <body>
+        {% if request.user.is_authenticated %}
+            <h1>Welcome back, {{ user }}!</h1>
+
+            {% if contacts %}
+                
+                <div class = "container">
+                    <table>
+                        <div class="row">
+                                <tr>
+                                    <div class="col-sm">
+                                    <th>First Name</th></div>
+                                    <th>Last Name</th>
+                                    <th>Contact No</th>
+                                    <th>Address</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </div>
+                        </div>
+                        
+                        {% for i in contacts %}
+                            <tr>
+                                <td>{{ i.fName }}</td>
+                                <td>{{ i.lName }}</td>
+                                <td>{{ i.contactNum }}</td>
+                                <td>{{ i.address }}</td>
+                                <td><a class="btn btn-default" href="{% url 'post_edit' pk=i.pk %}">
+                                    <span class="glyphicon glyphicon-pencil"></span></a>
+                                </td>
+                                <td><a class="btn btn-default" href="{% url 'post_delete' pk=i.pk %}">
+                                    <span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                
+            {% else %}
+                <strong>There are no contacts available.</strong>
+            {% endif %}
+
+            <div>
+                <a href="/addbook/add/">Add New Contacts</a>
+            </div>
+
+            <div>
+                <a href="/addbook/import/">Import CSV</a>
+            </div>
+
+            <div>
+                <a href="/addbook/logout/">Log out here</a>
+            </div>
+        {% else %}
+            <h1>Welcome to the Home Page!</h1>
+            <a href="/addbook/register/">Register Here</a><br />
+            <a href="/addbook/login/">Login Here</a>
+        {% endif %}
+
+        
+    </body>
+
+</html>

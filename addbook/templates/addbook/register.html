@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Final Exam Django</title>
+    </head>
+
+    <body>
+        <h1>Register Here</h1>
+
+        {% if registered %}
+            <strong>Thank you for registering!</strong>
+            <a href="/">Return to the homepage.</a><br />
+        {% else %}
+            <strong>Register here!</strong><br />
+
+            <form id="user_form" method="post" action="/addbook/register/"
+                    enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {{ user_form.as_p }}
+
+                <!-- button to click to submit the form -->
+                <input type="submit" name="submit" value="Register" />
+            </form>
+        {% endif %}
+    </body>
+</html>
